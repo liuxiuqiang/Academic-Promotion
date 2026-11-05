@@ -20,7 +20,7 @@ const bubbleBases=[2,4,6,9,12,16,21,27,34,43,55];
 const bubbleReward=lv=>Math.round(bubbleBases[lv]*difficultyBonus[modeIndex]);
 const awardForScore=total=>scienceAwards.slice().reverse().find(a=>total>=a.points)||null;
 const mergeReward=lv=>Math.round(scoreBase[lv]*difficultyBonus[modeIndex]);
-const promotionCost=lv=>Math.max(3,Math.round(mergeReward(lv)*.55));
+const promotionCost=lv=>Math.max(2,Math.round(mergeReward(lv)*.52));
 const clearCost=lv=>Math.max(4,Math.round(mergeReward(Math.min(lv,9))*(lv===10?1.4:.95)));
 const collabCost=lv=>Math.round(promotionCost(lv)*1.5);
 const moveCost=lv=>Math.max(3,Math.round(mergeReward(Math.min(lv,9))*(lv===10?1.05:.65)));
