@@ -20,7 +20,7 @@ const bubbleBases=[2,4,6,9,12,16,21,27,34,43,55];
 const bubbleReward=lv=>Math.round(bubbleBases[lv]*difficultyBonus[modeIndex]);
 const awardForScore=total=>scienceAwards.slice().reverse().find(a=>total>=a.points)||null;
 const mergeReward=lv=>Math.round(scoreBase[lv]*difficultyBonus[modeIndex]);
-const CLEAR_LIMIT=5,PROMOTION_LIMIT=5,COLLAB_LIMIT=5,CLEAR_MAX_LEVEL=5;
+const CLEAR_LIMIT=5,PROMOTION_LIMIT=4,COLLAB_LIMIT=12,CLEAR_MAX_LEVEL=5;
 const canClearBall=b=>!!b&&b.level<=CLEAR_MAX_LEVEL;
 const promotionCost=lv=>Math.max(2,Math.round(mergeReward(lv)*.52));
 const clearCost=lv=>Math.max(4,Math.round(mergeReward(Math.min(lv,9))*(lv===10?1.4:.95)));
@@ -64,7 +64,7 @@ function sound(kind,level=0){
  unlockAudio().then(ok=>{if(ok&&soundOn)play()})
 }
 const skillDefs=[["学术清理"],["破格晋升"],["科研暂停"],["学术合作"],["项目申请"],["学术调岗"]];
-const pauseSeconds=[5,4,3,2,1];const skillSubs=["点击清理教授以下圆球","点击任意球晋升一级","延后投放"+pauseSeconds[modeIndex]+"秒，每球一次","合并两颗相同等级球晋升","换出不同等级的下一球","拖动任意球到场内空位"];const skillPrices=["按球等级收费","按球等级收费","随难度计费","晋升费用×1.5","随难度计费","按球大小收费"];const projectTier=f=>f>=10000000?"重大项目":f>=1000000?"重点项目":f>=100000?"面上项目":f>=10000?"一般项目":f>=5000?"校级项目":f>=1000?"院系级项目":"未立项";
+const pauseSeconds=[5,4,3,2,1];const skillSubs=["点击清理教授以下圆球","点击任意球晋升一级","延后投放"+pauseSeconds[modeIndex]+"秒，每球一次","合并两颗相同等级球晋升","换出不同等级的下一球","拖动任意球到场内空位"];const skillPrices=["按球等级收费","按球等级收费","随难度计费","晋升费用×1.5","随难度计费","按球大小收费"];const projectTier=f=>f>=10000?"重大项目":f>=7500?"重点项目":f>=5000?"面上项目":f>=3500?"一般项目":f>=2000?"校级项目":f>=1000?"院系级项目":"未立项";
 const skillsEl=document.getElementById("skills"),hintEl=null;
 function canUseSkill(i){
  if(ended)return false;
@@ -125,7 +125,7 @@ function useBallSkill(x,y){
  if(collabUsed>=COLLAB_LIMIT){selectedSkill="";status.textContent="本局学术合作次数已用完";skillUI();return}
  const other=balls.filter(q=>q!==b&&q.level===lv).sort((a,c)=>(a.x-b.x)**2+(a.y-b.y)**2-(c.x-b.x)**2-(c.y-b.y)**2)[0];
  if(!other){collabErrorUntil=performance.now()+1800;status.textContent="学术合作需要两个同等级圆球";sound("fail");return}
- const cost=collabCost(lv);if(!pay(cost)){status.textContent="合作需"+cost+"经费";return}merge(b,other);collabUsed++;selectedSkill="";status.textContent="学术合作消耗"+cost+"经费，剩余"+(COLLAB_LIMIT-collabUsed)+"次"}
+ const cost=collabCost(lv);if(!pay(cost)){status.textContent="合作需"+cost+"经费";return}if(!merge(b,other)){funds+=cost;status.textContent="合作未完成，经费已退还";skillUI();return}collabUsed++;selectedSkill="";status.textContent="学术合作消耗"+cost+"经费，剩余"+(COLLAB_LIMIT-collabUsed)+"次"}
  skillUI();
 }
 function relocate(b,x,y){
