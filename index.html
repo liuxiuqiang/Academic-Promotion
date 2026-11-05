@@ -139,7 +139,7 @@ function relocate(b,x,y){
 }
 canvas.addEventListener("pointermove",e=>{const p=pointOnCanvas(e);aim=p.x;if(relocationDrag){relocationDrag.x=p.x;relocationDrag.y=p.y}});
 canvas.addEventListener("pointerdown",e=>{
- if(ended){if(settling){let now=performance.now();let guard=0;while(settling&&guard++<balls.length+5){now=Math.max(now,settlementNext);advanceSettlement(now)}}else reset();return}
+ if(ended){reset();return}
  const p=pointOnCanvas(e);aim=p.x;
  if(selectedSkill==="调岗"){const b=findBall(p.x,p.y);if(b){relocationDrag={ball:b,x:p.x,y:p.y};try{canvas.setPointerCapture(e.pointerId)}catch(ex){}}return}
  if(selectedSkill){useBallSkill(p.x,p.y);return}
