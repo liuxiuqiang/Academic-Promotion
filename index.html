@@ -64,7 +64,7 @@ function sound(kind,level=0){
  unlockAudio().then(ok=>{if(ok&&soundOn)play()})
 }
 const skillDefs=[["学术清理"],["破格晋升"],["科研暂停"],["学术合作"],["项目申请"],["学术调岗"]];
-const pauseSeconds=[5,4,3,2,1];const skillSubs=["点击副教授及以下圆球清理","点击任意球晋升一级","延后投放"+pauseSeconds[modeIndex]+"秒，每球一次","合并两颗相同等级球晋升","换出不同等级的下一球","拖动任意球到场内空位"];const skillPrices=["按球等级收费","按球等级收费","随难度计费","晋升费用×1.5","随难度计费","按球大小收费"];const projectTier=f=>f>=10000000?"重大项目":f>=1000000?"重点项目":f>=100000?"面上项目":f>=10000?"一般项目":f>=5000?"校级项目":f>=1000?"院系级项目":"未立项";
+const pauseSeconds=[5,4,3,2,1];const skillSubs=["点击清理教授以下圆球","点击任意球晋升一级","延后投放"+pauseSeconds[modeIndex]+"秒，每球一次","合并两颗相同等级球晋升","换出不同等级的下一球","拖动任意球到场内空位"];const skillPrices=["按球等级收费","按球等级收费","随难度计费","晋升费用×1.5","随难度计费","按球大小收费"];const projectTier=f=>f>=10000000?"重大项目":f>=1000000?"重点项目":f>=100000?"面上项目":f>=10000?"一般项目":f>=5000?"校级项目":f>=1000?"院系级项目":"未立项";
 const skillsEl=document.getElementById("skills"),hintEl=null;
 function canUseSkill(i){
  if(ended)return false;
