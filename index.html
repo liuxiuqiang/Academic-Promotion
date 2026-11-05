@@ -180,7 +180,7 @@ function advanceSettlement(t){
  if(settlementQueue.length){
   const b=settlementQueue.shift(),idx=balls.indexOf(b);
   if(idx>=0){balls.splice(idx,1);const value=bubbleReward(b.level);score+=value;bubbleBonus+=value;popFX={x:b.x,y:b.y,value,at:t};scoreEl.textContent=score;status.textContent=names[b.level]+"泡泡 +"+value.toLocaleString()+"分"}
-  settlementNext=t+125;
+  settlementNext=t+220;
  }else{
   finalFundsBonus=funds;score+=funds;funds=0;settling=false;finalShownAt=performance.now();scoreEl.textContent=score;finalAward=awardForScore(score);
   if(score>best){best=score;bestEl.textContent=best;localStorage.setItem("academicPromotionBest",best)}
